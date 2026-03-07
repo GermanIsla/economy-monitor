@@ -1,0 +1,30 @@
+# 1. Descomprimir donde quieras tener el proyecto
+unzip economy_monitor.zip
+cd economy_monitor
+
+# 2. Crear entorno virtual e instalar dependencias
+python -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+
+
+#ACTIVAR ENTORNO VIRUTAL SIEMPRE:
+source venv/bin/activate
+
+# 3. Primera descarga de datos (Tesoro USA)
+python run_pipeline.py treasury
+╰─❯ python run_pipeline.py nfci    
+╰─❯ python run_pipeline.py repo  
+
+# 4. Abrir el dashboard
+python run_dashboard.py
+# → Abrir http://127.0.0.1:8050 en el navegador
+
+
+#¿que hacer si añado nuevas tablas? Borrar lo que había y cargar de nuevo.
+rm data/economy_monitor.db
+#En caso de ya tener datos guardados de hoy:
+
+python run_pipeline.py repo --from-staging
+python run_pipeline.py treasury --from-staging
+python run_pipeline.py nfci --from-staging

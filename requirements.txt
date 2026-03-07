@@ -1,0 +1,25 @@
+# Dashboard
+dash>=2.14.0
+dash-bootstrap-components>=1.5.0
+plotly>=5.18.0
+
+# Base de datos
+sqlalchemy>=2.0.0
+alembic>=1.13.0
+
+# Scheduler
+apscheduler>=3.10.0
+
+# Adquisición de datos
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+selenium>=4.15.0
+lxml>=5.1.0
+
+# Procesamiento
+pandas>=2.1.0
+numpy>=1.26.0
+
+# Utilidades
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
