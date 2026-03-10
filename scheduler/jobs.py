@@ -6,6 +6,7 @@ from pipelines.treasury_pipeline import TreasuryPipeline
 from pipelines.nfci_pipeline import NFCIPipeline
 from utils.logger import get_logger
 
+
 logger = get_logger("scheduler")
 
 
@@ -58,6 +59,29 @@ def register_jobs(scheduler):
         hour=10, minute=0,
         id='repo_daily',
         replace_existing=True
+    )
+
+    # --- BCE: día 5 de cada mes a las 8:00 (datos MMSR son mensuales) ---
+    from pipelines.ecb_pipeline import ECBPipeline
+    scheduler.add_job(
+        run_pipeline_safe,
+        trigger='cron',
+        args=[ECBPipeline],
+        day=5, hour=8, minute=0,
+        id='ecb_monthly',
+        replace_existing=True
+    )
+    from pipelines.fed_balance_pipeline import FedBalancePipeline
+
+    # Y en register_jobs(), añade:
+    scheduler.add_job(
+        run_pipeline_safe,
+        trigger='cron',
+        args=[FedBalancePipeline],
+        day_of_week='thu',   # El H.4.1 se publica los jueves
+        hour=20,
+        id='fed_balance_weekly',
+        replace_existing=True,
     )
 
     # --- Descomenta estos bloques cuando implementes los pipelines ---

@@ -12,7 +12,8 @@ PIPELINES = {
     'repo': 'pipelines.repo_pipeline.RepoPipeline',
     # Descomenta cuando estén implementados:
     # 'indices': 'pipelines.indices_pipeline.IndicesPipeline',
-    # 'ecb': 'pipelines.ecb_pipeline.ECBPipeline',
+    'ecb': 'pipelines.ecb_pipeline.ECBPipeline',
+    'fed_balance': 'pipelines.fed_balance_pipeline.FedBalancePipeline',
 }
 
 

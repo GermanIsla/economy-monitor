@@ -50,3 +50,39 @@
     background-color: rgba(255, 255, 255, 0.2);
     border-radius: 2px;
 }
+
+/* Fix Dropdowns — Dash 4.0 (Radix UI) con tema DARKLY */
+.dash-dropdown-value {
+    color: #dee2e6 !important;
+}
+
+.dash-dropdown {
+    background-color: #2b2d30 !important;
+    border-color: #495057 !important;
+    color: #dee2e6 !important;
+}
+
+.dash-dropdown-content {
+    background-color: #2b2d30 !important;
+    border-color: #495057 !important;
+}
+
+.dash-dropdown-option {
+    color: #dee2e6 !important;
+    background-color: #2b2d30 !important;
+}
+
+.dash-options-list-option.selected .dash-dropdown-option {
+    background-color: #0d6efd !important;
+    color: #ffffff !important;
+}
+
+.dash-options-list-option:hover .dash-dropdown-option {
+    background-color: #374151 !important;
+}
+
+.dash-dropdown-search {
+    background-color: #1a1d21 !important;
+    color: #dee2e6 !important;
+    border-color: #495057 !important;
+}

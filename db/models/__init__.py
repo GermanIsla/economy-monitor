@@ -9,7 +9,8 @@ from .nfci import NFCIReading
 from .indices import MarketIndex, ETFPrice
 from .repo import RepoOperation
 from .gcf_repo import GCFRepoTotal, RepoMarketSplit, GCFRepoAssetClass, GCFRepoCUSIP
-from .ecb import ECBRate, ECBBalanceSheet
+from .ecb import ECBRate, ECBBalanceSheet, ECBMarketIndicator
+from .fed_balance import FedBalanceAsset
 
 __all__ = [
     'Base', 'TimestampMixin', 'PipelineRun',
@@ -17,5 +18,5 @@ __all__ = [
     'MarketIndex', 'ETFPrice',
     'RepoOperation',
     'GCFRepoTotal', 'RepoMarketSplit', 'GCFRepoAssetClass', 'GCFRepoCUSIP',
-    'ECBRate', 'ECBBalanceSheet',
+    'ECBRate', 'ECBBalanceSheet', 'ECBMarketIndicator',
 ]

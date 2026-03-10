@@ -46,5 +46,15 @@ SOURCES = {
         "rate_limit": 1.0,
         "schedule": {"trigger": "cron", "hour": 10, "minute": 0},
     },
+    "ecb": {
+        "base_url": "https://data-api.ecb.europa.eu/service/data/MMSR/",
+        "rate_limit": 3.0,
+        "schedule": {"trigger": "cron", "hour": 9, "minute": 0}, # Se publica por la mañana
+    },
+    "fred": {
+        "base_url": "https://api.stlouisfed.org/fred/series/observations",
+        "api_key": os.getenv("FRED_API_KEY", ""),
+        "rate_limit": 0.5,  # segundos entre peticiones
+    },
     # Añadir nuevas fuentes aquí siguiendo el mismo patrón
 }

@@ -54,6 +54,16 @@ def create_layout():
                             "Repo"
                         ], href="/repo", active="exact"),
 
+                        dbc.NavLink([
+                            html.I(className="bi bi-arrow-left-right me-2"),
+                            "Ecb"
+                        ], href="/ecb", active="exact"),
+
+                        dbc.NavLink([
+                            html.I(className="bi bi-bar-chart-fill me-2"),
+                            "Datos FRED"
+                        ], href="/fred-data", active="exact"),
+
                         html.Hr(className="border-secondary"),
 
                         dbc.NavLink([

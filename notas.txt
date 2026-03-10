@@ -28,3 +28,45 @@ rm data/economy_monitor.db
 python run_pipeline.py repo --from-staging
 python run_pipeline.py treasury --from-staging
 python run_pipeline.py nfci --from-staging
+
+
+
+# Incremental (por defecto): solo datos nuevos
+python run_pipeline.py treasury
+# Completo: descarga todo el histórico
+python run_pipeline.py treasury --full
+# Desde staging: re-procesar sin descargar
+python run_pipeline.py treasury --from-staging
+
+
+
+
+#DÍA A DÍA
+# Ver qué has cambiado
+git status
+# Añadir todo y hacer commit
+git add .
+git commit -m "descripción breve del cambio"
+# Subir a GitHub
+git push
+
+
+#GIT
+# Inicializar git y hacer el primer commit
+git init
+git add .
+git commit -m "Estado inicial: Treasury + NFCI + Repo funcionando"
+
+
+# Conectar y subir
+git remote add origin https://github.com/GermanIsla/economy-monitor.git
+git branch -M main
+git push -u origin main
+
+#He añadido la url de ssh, para mayor seguridad y subir todo a github. Ahora tenemos contraseña
+# 1. Aseguramos que la URL es la de SSH
+git remote set-url origin git@github.com:GermanIsla/economy-monitor.git
+# 2. Renombramos la rama local a 'main' para que coincida con GitHub
+git branch -M main
+# 3. Subimos los archivos
+git push -u origin main

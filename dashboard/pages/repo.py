@@ -59,12 +59,16 @@ El "tri-party" significa que un banco intermediario (clearing bank) gestiona el 
 Es uno de los mercados más grandes del mundo — mueve billones de dólares diarios — y es crucial para la
 liquidez del sistema financiero.
 """,
+
     'origin': """
-**Colateral Externo** = deuda pública y de agencias gubernamentales (Treasuries, Agency MBS, etc.).
-Es el colateral más seguro y líquido. **Colateral Interno** = deuda privada, corporativa y estructurada
+- **Colateral Externo** = deuda pública y de agencias gubernamentales (Treasuries, Agency MBS, etc.).
+Es el colateral más seguro y líquido. 
+- **Colateral Interno** = deuda privada, corporativa y estructurada
 (ABS, CDOs, Equities, etc.). Más arriesgado pero con mejores rendimientos.
 Cuando el colateral interno crece respecto al externo, indica mayor apetito por riesgo en el mercado.
+
 """,
+
     'quality': """
 **Calidad Altísima**: Bonos del Tesoro USA — el activo más seguro del mundo.
 **Calidad Media**: Deuda de agencias gubernamentales (Fannie Mae, Freddie Mac, Ginnie Mae).
@@ -72,45 +76,119 @@ Cuando el colateral interno crece respecto al externo, indica mayor apetito por 
 **Calidad Baja**: ABS e hipotecas privadas de grado especulativo (non-investment grade).
 **Calidad Bajísima**: CDOs, Equities, préstamos completos (whole loans) — el colateral más arriesgado.
 """,
+
     'risk': """
 Este análisis muestra qué proporción del mercado de repo está respaldada por colateral de calidad
 inferior a "media". Es un **indicador de riesgo sistémico**: cuando este porcentaje sube, significa que
 se está usando más deuda de baja calidad como garantía, lo que puede amplificar las pérdidas en una crisis.
 Durante la crisis de 2008, el colapso de este tipo de colateral fue uno de los detonantes del pánico.
 """,
+
     'equities': """
 **Equities como colateral** incluye acciones, ETFs, ADRs, fondos mutuos, warrants y bonos convertibles.
 Es el colateral más volátil del mercado de repo. Su volumen es un indicador de cuánto apalancamiento
 se está usando en el mercado de valores — cuando sube, los dealers están pidiendo más prestado usando
 sus carteras de acciones como garantía, lo que aumenta el riesgo ante caídas del mercado.
 """,
+
     'gcf_liquidity': """
+
+Este es el análisis de la "liquidez real" del sistema. Si el gráfico de Market Structure nos mostraba el mapa de las tuberías, este nos muestra la presión del agua que corre por ellas.
+En el GCF Repo, la clave no es cuánto dinero se mueve en total, sino cuánto dinero necesita quedarse un banco al final del día después de haber operado con todos los demás.
+
 **GCF Repo** (General Collateral Finance) es un subsistema donde los dealers intercambian colateral
 genérico entre ellos, gestionado por FICC (Fixed Income Clearing Corporation).
-- **Gross Securities**: Volumen bruto total de valores intercambiados.
-- **Net Cash Borrowed**: Efectivo neto prestado — mide la **demanda real de liquidez** entre dealers.
-- **Net Securities Delivered**: Valores netos entregados para cumplir las obligaciones.
+- **Gross Securities**: Volumen bruto total de valores intercambiados. Si este número es muy alto, significa que los bancos están intercambiando muchísimos activos. Es una señal de un mercado vibrante donde es fácil encontrar contraparte para "mover" papel (colateral).
+- **Net Cash Borrowed**: Efectivo neto prestado — mide la **demanda real de liquidez** entre dealers. Es la cantidad de dinero real que ha cambiado de manos después de compensar todas las operaciones de compra y venta entre dealers. **Interpretación:** Es una cifra mucho más "sincera" que el volumen bruto. Si el Net Cash sube, significa que hay bancos que tienen un déficit real de dinero y no pueden compensarlo simplemente intercambiando cromos con otros.
+- **Net Securities Delivered**: Valores netos entregados para cumplir las obligaciones. **¿Qué nos dice?:** Mide cuánto "papel" ha tenido que sacrificar el sistema para conseguir el dinero. **Interpretación:** Generalmente se mueve en paralelo al Net Cash. Si ves una divergencia (por ejemplo, mucho envío de valores pero poco cash recibido), podría indicar que se está entregando colateral de peor calidad que requiere mayores garantías.
 
 La ratio **Net Cash / Gross** indica qué porcentaje del volumen es demanda real vs intermediación pura.
 Si sube bruscamente, puede indicar **estrés de liquidez** en el sistema.
+- Ratio Baja (Intermediación eficiente): La mayoría de las operaciones se cancelan entre sí. Los bancos actúan como intermediarios, moviendo dinero de un lado a otro sin quedarse con mucho. Las tuberías están limpias y el sistema es fluido.
+- Ratio Alta (Estrés de Liquidez): Si la ratio sube bruscamente, significa que el sistema ha perdido su capacidad de compensación. Los bancos ya no están "jugando" entre ellos; están desesperados por conseguir efectivo neto.
+
+Para entender estos datos, primero debemos entender el concepto de Netting (Compensación). En un mercado de dealers, el Banco A puede prestarle 100€ al Banco B, y el Banco B prestarle 90€ al Banco A. El volumen bruto es 190€, pero la realidad es que solo han "viajado" 10€ netos.
+
+**Implicaciones para el Analista**
+- Atasco en el sistema: Un aumento en el Net Cash Borrowed sin un aumento proporcional en el Gross sugiere que hay unos pocos bancos con problemas serios de liquidez que están absorbiendo todo el dinero disponible del mercado inter-dealer.
+- Fragilidad ante Shocks: Cuando la demanda neta de efectivo es muy alta, el sistema se vuelve frágil. Si un banco grande decide dejar de prestar ese "Net Cash" un viernes por la tarde, el lunes podríamos tener una crisis de liquidez (como ocurrió en la crisis de los repos de 2019).
+- Uso de Colateral: El desglose por tipos de activos (Asset Classes) nos dirá si ese efectivo neto se está consiguiendo entregando Treasuries (fácil y barato) o si están teniendo que recurrir a entregar MBS o TIPs (más caro y difícil).
+
+La ratio **Net Securities Delivered / Net Cash Borrowed** mide el **coste en papel del dinero conseguido**.
+Responde a la pregunta: ¿cuántos valores tiene que entregar el sistema para obtener 1 unidad de efectivo neto?
+- **Ratio baja (< 1x)**: El sistema obtiene más cash del que entrega en valores. Alta eficiencia, colateral de calidad.
+- **Ratio alta (> 1x o en aumento)**: Hay que sacrificar cada vez más papel para conseguir el mismo dinero — señal de que se está usando colateral de menor calidad, con haircuts más altos, o que la demanda de efectivo supera la oferta.
+- **Divergencia con Net Cash/Gross**: Si esta ratio sube mientras la de Net Cash/Gross se mantiene estable, indica deterioro de la calidad del colateral, no necesariamente escasez de liquidez.
 """,
+
     'market_structure': """
-**Tri-Party puro (TPR)** = repos donde el colateral se gestiona a través de un clearing bank (BNY Mellon).
+- **Tri-Party puro (TPR)** = repos donde el colateral se gestiona a través de un clearing bank (BNY Mellon).
 Los participantes son dealers, fondos monetarios, y otros inversores institucionales.
-**GCF Repo** = un subconjunto especializado donde los dealers intercambian colateral entre sí.
+- **GCF Repo** = un subconjunto especializado donde los dealers intercambian colateral entre sí.
 Funciona como un mercado "al por mayor" dentro del mercado de repo.
+- **Agency MBS (Mortgage-Backed Securities)** = Son bonos respaldados por pools de hipotecas residenciales o comerciales. Un volumen alto de Agency MBS indica un mercado hipotecario activo y que los dealers están cómodos financiando activos que rinden un poco más que el Tesoro a cambio de un riesgo marginalmente mayor.
+- **Agency (Other than MBS) - Deuda de Agencia "Pura"** = Es deuda que las agencias (Fannie, Freddie, Federal Home Loan Banks, etc.) emiten para financiar sus propias operaciones diarias, no para empaquetar hipotecas. Son bonos "normales" emitidos por estas entidades. Son un termómetro de la salud financiera de las instituciones que sostienen el sistema de vivienda de EE.UU.
+- **Treasury** = Es deuda emitida directamente por el Departamento del Tesoro de EE.UU. Si el volumen de Treasuries en el Repo sube, el mercado está en modo defensivo. Es el activo al que todos corren cuando hay pánico en la bolsa o incertidumbre geopolítica.
+
 
 Si el GCF crece más rápido que el TPR, indica que los dealers están redistribuyendo más colateral entre
 ellos — señal de que hay **desequilibrios** en la posesión de ciertos tipos de activos.
+
+Para entender este gráfico, hay que visualizar el mercado como un sistema de dos niveles: el dinero que entra de "fuera" (TPR) y el dinero que se mueven los bancos "dentro" (GCF).
+
+El Tri-Party Repo es la puerta de entrada de liquidez al sistema bancario.
+- ¿Quién participa?: Por un lado, los que tienen mucho efectivo sobrante (Fondos del Mercado Monetario o MMF, fondos de pensiones, aseguradoras). Por el otro, los Dealers (grandes bancos como JP Morgan o Goldman Sachs) que necesitan ese dinero para financiar sus operaciones.
+- El "Tercero" (Tri-Party): Se llama así porque hay un banco agente (principalmente BNY Mellon) que se encarga de que el intercambio sea seguro: custodia el colateral, valora los activos y mueve el efectivo.
+- Función: Es la fuente primaria de financiación. Si el volumen de TPR sube, significa que hay mucha liquidez "fresca" entrando al sistema desde los inversores institucionales.
+
+El GCF Repo es un mercado cerrado y anónimo exclusivo para dealers que pertenecen a la FICC (Fixed Income Clearing Corporation).
+- ¿Qué es?: Es un "sub-mercado" donde los bancos se prestan dinero entre ellos usando cestas de activos (colateral genérico) en lugar de bonos específicos.
+- Anonimato: Aquí los bancos no saben con quién están operando; la FICC actúa como la contraparte central, garantizando que todos cobren.
+- Función: Sirve para redistribuir la liquidez. Si un banco consiguió mucho dinero en el TPR pero otro banco se quedó corto, se lo prestan en el GCF.
+
+**Implicaciones**
+- Eficiencia en el Reparto: Si el volumen de GCF es una fracción pequeña y estable del TPR, el mercado es eficiente.
+- Concentración de Riesgo: Un GCF muy alto comparado con el TPR sugiere que el sistema depende demasiado del intercambio interno entre bancos. Si uno de esos bancos falla, el efecto dominó es mucho más rápido.
+- Métrica de Intermediación: El volumen neto de efectivo en GCF (Net Cash Borrowed) comparado con el volumen bruto de valores (Gross Securities) te indica cuánta de esa actividad es "necesidad real de dinero" vs. simplemente mover papeles para cuadrar cuentas.
 """,
+
     'overnight_term': """
-**Overnight** = préstamos a un día. Se devuelven al día siguiente.
-**Term** = préstamos a plazo (varios días, semanas o meses).
+- **Overnight** = préstamos a un día. Se devuelven al día siguiente.
+- **Term** = préstamos a plazo (varios días, semanas o meses).
+- **Agency MBS (Mortgage-Backed Securities)** = Son bonos respaldados por pools de hipotecas residenciales o comerciales. Un volumen alto de Agency MBS indica un mercado hipotecario activo y que los dealers están cómodos financiando activos que rinden un poco más que el Tesoro a cambio de un riesgo marginalmente mayor.
+- **Agency (Other than MBS) - Deuda de Agencia "Pura"** = Es deuda que las agencias (Fannie, Freddie, Federal Home Loan Banks, etc.) emiten para financiar sus propias operaciones diarias, no para empaquetar hipotecas. Son bonos "normales" emitidos por estas entidades. Son un termómetro de la salud financiera de las instituciones que sostienen el sistema de vivienda de EE.UU.
+- **Treasury** = Es deuda emitida directamente por el Departamento del Tesoro de EE.UU. Si el volumen de Treasuries en el Repo sube, el mercado está en modo defensivo. Es el activo al que todos corren cuando hay pánico en la bolsa o incertidumbre geopolítica.
 
 La proporción overnight/term es reveladora:
 - Más overnight → los participantes **no quieren comprometerse** a plazos largos (incertidumbre).
 - Más term → los participantes se sienten **cómodos** prestando a mayor plazo (confianza).
 Un giro súbito hacia overnight puede anticipar estrés en el mercado.
+
+La Dimensión Temporal: Overnight vs. Term
+
+En el mercado Repo, el tiempo es el factor que mide el riesgo de contraparte. No es lo mismo prestar 1.000 millones de dólares para que te los devuelvan mañana, que prestarlos para que te los devuelvan en 30 días.
+
+1. Definición de los Componentes
+- Overnight (O/N): Son préstamos con vencimiento a 24 horas. Es la forma más pura de liquidez inmediata. Los participantes usan el "Overnight" para cuadrar sus balances al cierre del día y cumplir con las regulaciones.
+- Term (Plazo): Son contratos que duran desde 2 días hasta varios meses. Representan la financiación estructural del sistema. Aquí es donde los bancos financian sus carteras de bonos a largo plazo.
+
+2. Cómo interpretar la Proporción (La Señal)
+Para entender este gráfico, debes mirar la relación entre ambos, no solo el volumen total:
+- Entorno de Confianza (Dominio del Term): Cuando el porcentaje de operaciones a plazo (Term) es alto o estable, significa que los prestamistas (quienes tienen el efectivo) no temen que el prestatario quiebre en las próximas semanas. Hay una visibilidad clara sobre los tipos de interés de la Fed y el sistema fluye con calma.
+- Entorno de Incertidumbre o Estrés (Refugio en Overnight): Si ves que el volumen de Term cae y el de Overnight sube bruscamente (lo que llamamos la "overnight-ización" del mercado), es una señal de alarma. Los prestamistas dicen: "Te presto hoy porque mañana puedo recuperar mi dinero si algo explota, pero no me pidas que me comprometa contigo a un mes".
+
+3. Los "Red Flags" (Banderas Rojas)
+- Riesgo de Renovación (Roll-over Risk): Si un dealer depende excesivamente del Overnight, vive al borde del abismo. Si una mañana el mercado se asusta y nadie le presta (como ocurrió en septiembre de 2019), ese dealer entra en crisis de liquidez en cuestión de horas.
+- Inversión de Expectativas: Si los tipos de interés del Repo Term empiezan a subir mucho más rápido que el Overnight, el mercado está descontando una subida de tipos de la Fed inminente o, peor aún, una escasez de colateral a futuro.
+
+4. Implicaciones Macroeconómicas
+- Transmisión de Política Monetaria: La Fed prefiere un mercado con un componente saludable de Term, ya que esto estabiliza los tipos de interés en toda la economía (hipotecas, créditos, etc.).
+- Volatilidad en los Mercados: Un mercado puramente Overnight es un mercado nervioso. Cualquier noticia económica se traduce en cambios bruscos en el coste de financiación diaria, lo que acaba afectando a la volatilidad de la bolsa (S&P 500) y de los bonos.
+
+Resumen para el analista:
+- Sube Overnight / Baja Term: "Tengo miedo al futuro cercano, quiero mi dinero disponible mañana mismo". (Incertidumbre/Riesgo).
+- Baja Overnight / Sube Term: "El sistema es predecible, puedo bloquear mi capital a cambio de un poco más de rentabilidad". (Confianza/Estabilidad).
+
 """,
     'cusips': """
 Desglose granular del GCF Repo por tipo específico de valor:
@@ -123,11 +201,57 @@ Desglose granular del GCF Repo por tipo específico de valor:
 
 Si los participantes rotan de MBS hacia Treasury, buscan **seguridad**.
 Si rotan hacia ARMs o TIPs, están posicionándose para **cambios en tipos de interés o inflación**.
+
+El GCF Repo (General Collateral Finance) es, en esencia, el mercado donde los grandes operadores (dealers) se prestan dinero entre sí de forma anónima usando garantías de alta calidad.
+- **Treasury (<10Y, <30Y)**: Deuda pública de EE.UU. a corto y largo plazo.Es el "colateral rey". Si su volumen sube, el mercado busca la máxima seguridad y liquidez posible.
+- **TIPs**: Treasury Inflation-Protected Securities (protección contra inflación). Si aumenta su uso en repo, indica que los participantes esperan que la inflación sea más alta de lo previsto y quieren cubrirse.
+- **STRIPs**: Bonos del Tesoro descompuestos en cupones individuales. Son extremadamente sensibles a los movimientos de los tipos de interés. Se usan para apuestas muy precisas sobre la curva de tipos.
+- **MBS (FNMA/FHLMC)**: Hipotecas de Fannie Mae y Freddie Mac. Son agencias respaldadas por el gobierno, pero con un toque más de riesgo que el Tesoro. Los ARMs (tipo variable) son termómetros de la volatilidad de tipos a corto plazo.
+- **GNMA**: Hipotecas de Ginnie Mae (respaldadas directamente por el gobierno). Tienen garantía total del gobierno de EE.UU. Son el puente entre la seguridad del Tesoro y el mercado hipotecario.
+
+**Lectura Estratégica:**
+- **Vuelo a la calidad**: Rotación de MBS (hipotecas) hacia Treasury. El mercado tiene miedo.
+- **Apetito por el riesgo**: Mayor peso de ARMs o Agency MBS frente al Tesoro.
+- **Señales de alerta**: Un aumento súbito en **STRIPs** suele indicar dificultades para gestionar la duración en las carteras de los grandes bancos.
+- **Alerta de Inflación**: Un aumento repentino en el volumen de TIPs como colateral suele preceder a datos de IPC moviditos o cambios en el discurso de la Fed.
+- **Problemas de Duración**: Si los STRIPs o Treasury <30Y empiezan a dominar, los participantes están teniendo dificultades para financiar sus posiciones de largo plazo, lo que puede indicar tensión en la curva de tipos.
+
+**Implicaciones Macroeconómicas:**
+- **Liquidez del Sistema**: Si el volumen total de GCF Repo cae drásticamente, los dealers tienen menos capacidad de "hacer mercado". Esto suele traer más volatilidad a la bolsa y a los bonos.
+- **Transmisión de la Política de la Fed**: Si la Fed sube tipos pero el mercado de Repo no reacciona o se descorrelaciona, tenemos un problema de transmisión monetaria.
+- **Stress Bancario**: El GCF Repo es ciego (blind brokered). Si los tipos en este mercado suben mucho por encima de la tasa de la Fed (IOER), significa que los bancos se están guardando el dinero y no confían en el sistema.
+
+
 """,
     'all': """
 Vista detallada de todos los tipos de colateral individuales del mercado tri-party.
 Cada línea representa una clase de activo específica. Los tipos Fedwire-eligible
 (Treasuries, Agency MBS, Agency Debentures) son los más líquidos y seguros.
+
+1. Los Activos "Estructurales" (El suelo del mercado)
+Son los activos Fedwire-eligible, lo que significa que pueden moverse instantáneamente a través del sistema de liquidación de la Reserva Federal.
+- Treasury Strips y Excluding Strips: Es deuda pura del gobierno. Si estas líneas dominan, el mercado es aburrido pero seguro.
+- Agency Debentures & MBS: Como vimos, son el respaldo hipotecario institucional.
+- Municipality Debt: Deuda de estados y ciudades. Es muy segura, pero menos líquida que los bonos del tesoro.
+
+2. El "Crédito Privado" (Donde empieza el riesgo)
+Aquí es donde los bancos usan deuda de empresas o préstamos para conseguir efectivo.
+- Corporates (Investment Grade vs. Non-Investment Grade): Deuda de empresas. Si ves que la línea de Non-Investment Grade (bonos basura) sube, el mercado está aceptando mucho riesgo a cambio de rentabilidad.
+- ABS (Asset-Backed Securities): Son paquetes de préstamos (de coches, tarjetas de crédito, etc.).
+- CMO Private Label: A diferencia de los Agency MBS, estos no tienen respaldo del gobierno. Son hipotecas privadas "empaquetadas". Si esta línea sube, la sombra de 2008 vuelve a asomarse.
+
+3. El Colateral "Exótico" y de Alto Riesgo
+Si estas líneas crecen, la fragilidad del sistema aumenta exponencialmente:
+- Equities (Acciones): Incluye acciones y ETFs. Es colateral muy volátil. Si la bolsa cae un 10%, el colateral que garantiza el préstamo también vale un 10% menos de golpe.
+- CDOs (Collateralized Debt Obligations): Famosos por la crisis subprime. Son derivados complejos. Verlos en el repo hoy es raro, pero indica una ingeniería financiera agresiva.
+- Whole Loans: Préstamos completos que aún no han sido "empaquetados". Son los más difíciles de vender en caso de emergencia.
+
+**El Concepto del "Haircut"** (El margen de desconfianza)
+Aunque no sea una línea de volumen, el Haircut (recorte) es lo que define cuánto vale cada línea en realidad.
+    Ejemplo: Si entregas 100M$ en Treasuries, el banco te presta 98M$ (Haircut del 2%). Pero si entregas 100M$ en Equities, quizás solo te presten 85M$ (Haircut del 15%).
+¿Por qué es importante en tu gráfico?
+Si ves que el volumen de activos con Haircuts altos (como Equities o Corporates Non-IG) está subiendo, significa que el sistema se está apalancando con activos de baja calidad. Si el mercado cae, esos "recortes" aumentarán, obligando a los bancos a devolver el dinero de golpe (un Margin Call sistémico).
+
 """
 }
 
@@ -199,7 +323,12 @@ layout = dbc.Container([
 
     dbc.Row([dbc.Col([dbc.Card([dbc.CardBody([dcc.Graph(id="repo-main-chart")])])], width=12)], className="mb-4"),
     dbc.Row([dbc.Col([dbc.Card([dbc.CardBody([dcc.Graph(id="repo-secondary-chart")])])], width=12)]),
-], fluid=True)
+    html.Div(
+        id="repo-tertiary-chart-row",
+        children=[dbc.Row([dbc.Col([dbc.Card([dbc.CardBody([dcc.Graph(id="repo-tertiary-chart")])])], width=12)], className="mt-4")],
+        style={'display': 'none'}
+    ),
+    ], fluid=True)
 
 
 # ============================================================
@@ -284,6 +413,8 @@ def _classify_origin(gn):
     Output("repo-explanation-box", "children"),
     Output("repo-main-chart", "figure"),
     Output("repo-secondary-chart", "figure"),
+    Output("repo-tertiary-chart", "figure"),
+    Output("repo-tertiary-chart-row", "style"),
     Input("repo-view-filter", "value"),
     Input("repo-period-filter", "value"),
 )
@@ -329,8 +460,12 @@ def update_repo(view, period_days):
         'cusips': lambda: _view_cusips(period_days),
         'all': lambda: _view_all(df),
     }
-    fig_main, fig_sec = dispatch.get(view, lambda: (empty, empty))()
-    return kpi_row, explanation, fig_main, fig_sec
+    if view == 'gcf_liquidity':
+        fig_main, fig_sec, fig_ter = dispatch.get(view, lambda: (empty, empty, empty))()
+        return kpi_row, explanation, fig_main, fig_sec, fig_ter, {'display': 'block'}
+    else:
+        fig_main, fig_sec = dispatch.get(view, lambda: (empty, empty))()
+        return kpi_row, explanation, fig_main, fig_sec, empty_figure(""), {'display': 'none'}
 
 
 # ============================================================
@@ -458,7 +593,26 @@ def _view_gcf_liquidity(period_days):
         avg = ratio.mean()
         fig2.add_hline(y=avg, line_dash="dash", line_color="rgba(255,255,255,0.4)", annotation_text=f"Media: {avg:.1f}%", annotation_position="top right", annotation_font_color="rgba(255,255,255,0.6)")
     fig2.update_layout(**_base_layout(title_text="Ratio de Demanda de Liquidez (Net Cash / Gross)", yaxis_title="% del Bruto", showlegend=False))
-    return fig1, fig2
+
+    fig3 = go.Figure()
+    if 'Net Securities Delivered' in g.columns and 'Net Cash Borrowed' in g.columns:
+        ratio3 = (g['Net Securities Delivered'] / g['Net Cash Borrowed']).replace([float('inf'), float('-inf')], None).fillna(0)
+        fig3.add_trace(go.Scatter(
+            x=ratio3.index, y=ratio3, mode='lines+markers',
+            name='Net Securities / Net Cash',
+            line=dict(color='#a78bfa', width=2.5),
+            fill='tozeroy', fillcolor='rgba(167, 139, 250, 0.12)',
+            marker=dict(size=5)
+        ))
+        avg3 = ratio3.mean()
+        fig3.add_hline(y=avg3, line_dash="dash", line_color="rgba(255,255,255,0.4)",
+                       annotation_text=f"Media: {avg3:.2f}x", annotation_position="top right",
+                       annotation_font_color="rgba(255,255,255,0.6)")
+    fig3.update_layout(**_base_layout(
+        title_text="Coste del Colateral: Net Securities Delivered / Net Cash Borrowed",
+        yaxis_title="Ratio (x veces)", showlegend=False
+    ))
+    return fig1, fig2, fig3
 
 
 # ============================================================
