@@ -14,6 +14,8 @@ PIPELINES = {
     # 'indices': 'pipelines.indices_pipeline.IndicesPipeline',
     'ecb': 'pipelines.ecb_pipeline.ECBPipeline',
     'fed_balance': 'pipelines.fed_balance_pipeline.FedBalancePipeline',
+    'cot': 'pipelines.cot_pipeline.COTPipeline',
+    'commodity_prices': 'pipelines.commodity_price_pipeline.CommodityPricePipeline',
 }
 
 

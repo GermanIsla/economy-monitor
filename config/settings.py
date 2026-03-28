@@ -56,5 +56,14 @@ SOURCES = {
         "api_key": os.getenv("FRED_API_KEY", ""),
         "rate_limit": 0.5,  # segundos entre peticiones
     },
+    'cot': {
+        'base_url':  'https://publicreporting.cftc.gov/resource/kh3c-gbw2.json',
+        'rate_limit': 1.0,   # 1 segundo entre peticiones (Socrata es permisivo, pero somos educados)
+        'page_size':  1000,  # Máximo permitido por Socrata sin app token
+    },
+    'alpha_vantage': {
+        'base_url':   'https://www.alphavantage.co/query',
+        'rate_limit': 15.0,  # 15s entre peticiones → 4/min, muy por debajo del límite
+    },
     # Añadir nuevas fuentes aquí siguiendo el mismo patrón
 }

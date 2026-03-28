@@ -63,6 +63,10 @@ def create_layout():
                             html.I(className="bi bi-bar-chart-fill me-2"),
                             "Datos FRED"
                         ], href="/fred-data", active="exact"),
+                        dbc.NavLink([
+                            html.I(className="bi bi-bar-chart-steps me-2"),
+                            "COT — Materias Primas"
+                        ], href="/cot", active="exact"),
 
                         html.Hr(className="border-secondary"),
 

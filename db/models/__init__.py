@@ -11,6 +11,8 @@ from .repo import RepoOperation
 from .gcf_repo import GCFRepoTotal, RepoMarketSplit, GCFRepoAssetClass, GCFRepoCUSIP
 from .ecb import ECBRate, ECBBalanceSheet, ECBMarketIndicator
 from .fed_balance import FedBalanceAsset
+from .cot import COTReport
+from .commodity_price import CommodityPrice
 
 __all__ = [
     'Base', 'TimestampMixin', 'PipelineRun',
