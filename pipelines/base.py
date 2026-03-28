@@ -4,7 +4,7 @@
 import os
 import json
 from abc import ABC, abstractmethod
-from datetime import datetime, date
+from datetime import datetime, date, timedelta
 from db.engine import get_session
 from db.models.pipeline_metadata import PipelineRun
 from utils.logger import get_logger
@@ -20,16 +20,23 @@ os.makedirs(STAGING_DIR, exist_ok=True)
 class BasePipeline(ABC):
     """
     Contrato que todos los pipelines deben cumplir.
-    
+
     Soporta dos modos de descarga:
     - Incremental (por defecto): solo datos nuevos desde la última ejecución.
     - Completa (--full): todo el histórico. Para inicialización o correcciones.
-    
+
     Cada pipeline recibe since_date en extract() y decide cómo usarlo:
     - Si la API soporta filtro por fecha: descargar solo lo nuevo.
     - Si no (ej: Excel completo de NY Fed): ignorar since_date, descargar todo,
       y dejar que el UPSERT descarte duplicados.
+
+    min_interval_hours: horas mínimas entre ejecuciones exitosas consecutivas.
+    Las subclases lo sobreescriben según su frecuencia de actualización.
     """
+
+    # Intervalo mínimo por defecto: pipelines diarios.
+    # Pipelines semanales usan 144h, mensuales 600h.
+    min_interval_hours: float = 20.0
 
     def __init__(self):
         self.logger = get_logger(self.name)
@@ -62,6 +69,28 @@ class BasePipeline(ABC):
     def load(self, clean_data: list[dict]) -> int:
         """Guarda en DB con UPSERT. Retorna nº de registros."""
         pass
+
+    def is_fresh(self) -> bool:
+        """
+        Devuelve True si el último run exitoso ocurrió dentro de min_interval_hours.
+        Usado por el scheduler para evitar ejecuciones redundantes.
+        """
+        try:
+            with get_session() as session:
+                stmt = (
+                    select(PipelineRun.finished_at)
+                    .where(PipelineRun.pipeline_name == self.name)
+                    .where(PipelineRun.status == 'success')
+                    .order_by(PipelineRun.finished_at.desc())
+                    .limit(1)
+                )
+                result = session.execute(stmt).scalar()
+                if result:
+                    age = datetime.now() - result
+                    return age < timedelta(hours=self.min_interval_hours)
+        except Exception:
+            pass
+        return False
 
     def get_last_successful_date(self) -> date | None:
         """Consulta cuándo fue la última ejecución exitosa de este pipeline."""

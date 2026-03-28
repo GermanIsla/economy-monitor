@@ -40,6 +40,8 @@ class FedBalancePipeline(BasePipeline):
             self.logger.error("FRED_API_KEY no encontrada en .env")
         self.base_url = "https://api.stlouisfed.org/fred/series/observations"
 
+    min_interval_hours = 144.0  # Semanal (H.4.1 se publica los jueves)
+
     @property
     def name(self) -> str:
         return "fed_balance"

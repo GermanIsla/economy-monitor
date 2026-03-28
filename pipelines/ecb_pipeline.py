@@ -88,6 +88,8 @@ class ECBPipeline(BasePipeline):
         self.base_url = config['base_url']
         self.limiter = RateLimiter(min_interval=config['rate_limit'])
 
+    min_interval_hours = 600.0  # Mensual (~25 días)
+
     @property
     def name(self) -> str:
         return "ecb"

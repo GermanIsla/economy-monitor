@@ -39,6 +39,8 @@ class NFCIPipeline(BasePipeline):
                 "Obtén una clave gratuita en: https://fred.stlouisfed.org/docs/api/api_key.html"
             )
 
+    min_interval_hours = 144.0  # Semanal
+
     @property
     def name(self) -> str:
         return "nfci"
